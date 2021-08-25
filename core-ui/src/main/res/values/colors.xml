@@ -12,4 +12,6 @@
     <color name="silver">#ecf0f1</color>
     <color name="salmon">#FE6965</color>
     <color name="white_transparency">#CCFFFFFF</color>
+    <color name="black_transparency">#CC000000</color>
+
 </resources>

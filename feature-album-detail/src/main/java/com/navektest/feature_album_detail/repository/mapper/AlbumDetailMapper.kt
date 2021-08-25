@@ -8,7 +8,7 @@ class AlbumDetailMapper @Inject constructor() {
 
     fun map(albumEntity: AlbumEntity): AlbumDetail {
         return AlbumDetail(
-            albumEntity.albumId,
+            albumEntity.id,
             albumEntity.title,
             albumEntity.thumbnailUrl,
             albumEntity.url
