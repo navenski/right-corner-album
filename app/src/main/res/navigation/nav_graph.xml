@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/nav_graph.xml"
+  app:startDestination="@id/albumListFragment">
+
+  <fragment
+    android:id="@+id/albumListFragment"
+    android:name="com.navektest.feature_album_list.view.AlbumListFragment"
+    android:label="AlbumListFragment"
+    tools:layout="@layout/album_list_fragment">
+    <action
+      android:id="@+id/action_albumListFragment_to_albumDetailFragment"
+      app:destination="@id/albumDetailFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/albumDetailFragment"
+    android:name="com.navektest.feature_album_detail.view.AlbumDetailFragment"
+    tools:layout="@layout/album_detail_fragment"
+    android:label="AlbumDetailFragment" >
+    <deepLink
+      android:id="@+id/deepLink"
+      app:uri="android-app://right.corner.album/detail/" />
+    <argument
+      android:name="albumId"
+      app:argType="long"
+      android:defaultValue="-1L" />
+
+  </fragment>
+</navigation>

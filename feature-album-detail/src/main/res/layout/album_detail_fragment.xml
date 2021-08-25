@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="scope"
+      type="androidx.lifecycle.LifecycleCoroutineScope" />
+
+    <variable
+      name="filePathProvider"
+      type="com.navektest.core_common.provider.FilePathProvider" />
+
+    <variable
+      name="viewmodel"
+      type="com.navektest.feature_album_detail.viewmodel.AlbumDetailViewModel" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AlbumDetailFragment">
+
+    <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="wrap_content"
+      android:layout_height="400dp"
+      android:scaleType="centerCrop"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:pictureProvider="@{filePathProvider}"
+      app:pictureUrl="@{viewmodel.liveData.pictureUrl}"
+      app:scope="@{scope}"
+      app:thumbnailUrl="@{viewmodel.liveData.thumbnailUrl}"
+      tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <androidx.appcompat.widget.Toolbar
+      android:id="@+id/myToolbar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+      android:id="@+id/textView"
+      style="@style/TextAppearance.MaterialComponents.Headline5"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="16dp"
+      android:text="@{viewmodel.liveData.title}"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/imageView"
+      tools:text="This is a simple text in order to show ..." />
+
+    <TextView
+      android:id="@+id/textView2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@color/white_transparency"
+      android:padding="6dp"
+      app:idToText="@{viewmodel.liveData.id}"
+      app:layout_constraintBottom_toTopOf="@+id/textView"
+      app:layout_constraintEnd_toEndOf="@+id/textView"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.97" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

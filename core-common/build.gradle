@@ -1,0 +1,69 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "androidx.navigation.safeargs"
+android {
+  compileSdkVersion rootProject.compileSdkVersion
+  buildToolsVersion rootProject.buildToolsVersion
+
+  defaultConfig {
+    minSdkVersion rootProject.minSdkVersion
+    targetSdkVersion rootProject.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles "consumer-rules.pro"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
+}
+
+dependencies {
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation libraries.ktxCore
+  implementation libraries.ktxFragment
+  implementation libraries.appcompat
+  implementation libraries.material
+  implementation libraries.constraintlayout
+
+  //Navigation
+  implementation libraries.navigationFragment
+  implementation libraries.navigationUI
+  implementation libraries.navigationModuleSupport
+
+  // Room
+  implementation libraries.room
+  implementation libraries.roomCoroutines
+  kapt libraries.roomComplier
+
+  //Dagger
+  implementation libraries.hilt
+  kapt libraries.hiltCompiler
+
+  //Kotlin
+  implementation libraries.kotlinReflect
+  implementation libraries.kotlin_coroutines
+  implementation libraries.ktx_viewmodel
+  coreLibraryDesugaring libraries.desugarJdkLib
+
+  //SquareUp
+  implementation libraries.squareup.okhttp3
+  implementation libraries.squareup.loggingInterceptor
+  implementation libraries.squareup.retrofit
+  implementation libraries.squareup.retrofitConverter
+}

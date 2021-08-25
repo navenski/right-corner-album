@@ -1,0 +1,87 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+  compileSdkVersion 30
+
+  defaultConfig {
+    minSdkVersion 21
+    targetSdkVersion 30
+    versionCode 1
+    versionName "1.0"
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles "consumer-rules.pro"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
+  buildFeatures {
+    dataBinding true
+  }
+}
+
+dependencies {
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation libraries.ktxCore
+  implementation libraries.appcompat
+  implementation libraries.material
+  implementation libraries.constraintlayout
+
+  //Core-Features
+  implementation project(':core-navigation')
+  implementation project(':core-ui')
+  implementation project(':core-database')
+  implementation project(':core-common')
+
+  // Room
+  implementation libraries.room
+  implementation libraries.roomCoroutines
+  kapt libraries.roomComplier
+
+  //Hilt
+  implementation libraries.hilt
+  kapt libraries.hiltCompiler
+
+  //Kotlin
+  implementation libraries.kotlinReflect
+  implementation libraries.kotlin_coroutines
+  implementation libraries.ktx_viewmodel
+  implementation libraries.ktxFragment
+
+  //SquareUp
+  implementation libraries.squareup.okhttp3
+  implementation libraries.squareup.loggingInterceptor
+  implementation libraries.squareup.retrofit
+  implementation libraries.squareup.retrofitConverter
+
+  //Paging
+  implementation libraries.paging
+
+  // Glide
+  implementation libraries.glide.lib
+  kapt libraries.glide.compiler
+  implementation libraries.glide.okhttp3
+
+  //Swipe-Refresh
+  implementation libraries.swiperefreshlayout
+
+  testImplementation 'junit:junit:4.+'
+  androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}

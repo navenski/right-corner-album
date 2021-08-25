@@ -1,0 +1,7 @@
+<resources>
+  <string name="success_synchronisation">La mise à jour des données à réussie</string>
+  <string name="echec_synchronisation">Une erreur est survenue lors de la synchronisation</string>
+  <string name="offline_mode">Mode Offline</string>
+  <string name="no_album">Pas d\'album. Veuillez réessayer</string>
+  <string name="retry">réessayer</string>
+</resources>
