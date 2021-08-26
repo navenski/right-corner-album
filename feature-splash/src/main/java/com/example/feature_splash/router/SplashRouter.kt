@@ -2,11 +2,13 @@ package com.example.feature_splash.router
 
 import android.app.Activity
 import com.navektest.core_navigation.startScreen.StartScreenNavigation
+import dagger.hilt.android.qualifiers.ActivityContext
+import javax.inject.Inject
 
 /**
  * Handle all  navigation for the Splash feature
  */
-class SplashRouter(private val context: Activity, private val startScreenNavigation: StartScreenNavigation) {
+class SplashRouter @Inject constructor ( private val context: Activity, private val startScreenNavigation: StartScreenNavigation) {
 
     /**
      * Navigate to the startScreen.
