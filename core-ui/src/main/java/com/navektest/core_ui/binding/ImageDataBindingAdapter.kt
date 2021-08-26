@@ -1,27 +1,39 @@
 package com.navektest.core_ui.binding
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.core_ui.R
 import com.navektest.core_common.provider.FilePathProvider
+import com.navektest.core_ui.canceller.ImageJobsCanceller
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.File
+import java.lang.Exception
 
 object ImageDataBindingAdapter {
+
+    private val imageJobCanceller = ImageJobsCanceller()
 
     @JvmStatic
     @BindingAdapter(value = ["url", "scope", "pictureProvider"], requireAll = true)
     fun setUrl(image: ImageView, url: String, scope: CoroutineScope, pictureProvider: FilePathProvider) {
         image.setImageDrawable(null)
+        imageJobCanceller.cancelJob(image)
         scope.launch {
-            val filePath = pictureProvider.provide(url)
-            if (filePath.isNotEmpty()) {
-                loadImage(filePath, image)
-            }else
-                image.setImageResource(R.drawable.ic_gallery)
+            try {
+                val filePath = pictureProvider.provide(url)
+                if (filePath.isNotEmpty()) {
+                    loadImage(filePath, image)
+                } else
+                    image.setImageResource(R.drawable.ic_gallery)
+            } catch (exception: Exception) {
+                Log.e("ImageDataBindingAdapter", "error", exception)
+            }
+        } .apply {
+            imageJobCanceller.addJob(image, this)
         }
     }
 
@@ -34,18 +46,22 @@ object ImageDataBindingAdapter {
                 pictureProvider: FilePathProvider) {
         image.setImageDrawable(null)
         scope.launch {
-            val nonNullPictureUrl = pictureUrl ?: ""
-            val nonNullThumbnailUrl = thumbnailUrl ?: ""
+            try {
+                val nonNullPictureUrl = pictureUrl ?: ""
+                val nonNullThumbnailUrl = thumbnailUrl ?: ""
 
-            var filePath = pictureProvider.provide(nonNullPictureUrl)
-            if (filePath.isEmpty()) {
-                filePath = pictureProvider.provide(nonNullThumbnailUrl)
+                var filePath = pictureProvider.provide(nonNullPictureUrl)
+                if (filePath.isEmpty()) {
+                    filePath = pictureProvider.provide(nonNullThumbnailUrl)
+                }
+
+                if (filePath.isNotEmpty()) {
+                    loadImage(filePath, image)
+                } else
+                    image.setImageResource(R.drawable.ic_gallery)
+            } catch (exception: Exception) {
+                Log.e("ImageDataBindingAdapter", "error", exception)
             }
-
-            if (filePath.isNotEmpty()) {
-                loadImage(filePath, image)
-            }else
-                image.setImageResource(R.drawable.ic_gallery)
         }
     }
 

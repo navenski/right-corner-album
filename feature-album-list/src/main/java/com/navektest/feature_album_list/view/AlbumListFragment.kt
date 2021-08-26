@@ -35,7 +35,7 @@ class AlbumListFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
         viewModel.bindRouter(router)
-        val adapter = AlbumAdapter(viewModel, filePathProvider)
+        val adapter = AlbumAdapter(viewModel, filePathProvider, lifecycleScope)
         val spanCount = 3
         binding.recycler.layoutManager = GridLayoutManager(context, spanCount)
         val itemDecoration = GridSpacingItemDecoration(spanCount, 20, true)
