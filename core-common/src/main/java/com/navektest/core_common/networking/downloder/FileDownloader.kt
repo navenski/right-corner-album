@@ -8,11 +8,11 @@ data class FileDownloadData(val isSuccess: Boolean, val filePath:String)
 
 /**
  * File downloader class.
- * Download file and store it on a internal storage directory
+ * Download file and store it in the internal storage directory
  */
 interface FileDownloader {
     /**
-     * @param url
+     * @param url file to download
      * @param fileName
      * @return [FileDownloadData]
      */

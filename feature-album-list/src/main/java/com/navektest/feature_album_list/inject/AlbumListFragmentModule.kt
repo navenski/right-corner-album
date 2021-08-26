@@ -20,11 +20,4 @@ object AlbumListFragmentModule {
     fun provideSnackBarDisplayer(@ActivityContext context: Context): SnackBarDisplayer =
         SnackBarDisplayer(context as Activity)
 
-    @Provides
-    fun provideAlbumListRouter(@ActivityContext context: Context,
-                               navigation: AlbumDetailNavigation,
-                               snackBarDisplayer: SnackBarDisplayer,
-                               resourceResolver: ResourceResolver): AlbumListRouter =
-        AlbumListRouter(context as Activity, navigation, snackBarDisplayer, resourceResolver)
-
 }

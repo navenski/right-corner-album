@@ -14,13 +14,30 @@ enum class SnackBarMessageType {
     ERROR
 }
 
+/**
+ * Snackbar duration
+ */
 enum class SnackBarDurationType(val duration: Int) {
+    /**
+     * Show the Snackbar for a short period of time
+     */
     SHORT(Snackbar.LENGTH_SHORT),
+
+    /**
+     * Show the Snackbar for a long period of time
+     */
     LONG(Snackbar.LENGTH_LONG),
+    /**
+     * Show the Snackbar indefinitely
+     */
     INDEFINITE(Snackbar.LENGTH_INDEFINITE)
 }
 
-
+/**
+ * Wrapper class for displaying a [Snackbar]
+ * [SnackBarMessageType.SUCCESS] display a succes snackbar
+ * [SnackBarMessageType.ERROR] display an error snackbar
+ */
 class SnackBarDisplayer(activity: Activity) {
 
     private val weakActivity = WeakReference(activity)

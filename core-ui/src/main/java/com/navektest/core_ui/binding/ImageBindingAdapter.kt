@@ -13,7 +13,11 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.lang.Exception
 
-object ImageDataBindingAdapter {
+/**
+ * ImageView bindingAdapter.
+ *
+ */
+object ImageBindingAdapter {
 
     private val imageJobCanceller = ImageJobsCanceller()
 

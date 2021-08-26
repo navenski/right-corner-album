@@ -14,13 +14,16 @@ internal class ImageJobsCanceller {
     private val map = HashMap<Int, WeakReference<Job>>()
 
     /**
-     * Store a job in hashMap using
+     * Store a job in hashMap
      * @param view the imageview that have an executing [Job]
      */
     fun addJob(view: ImageView, job: Job) {
         map[view.hashCode()] = WeakReference(job)
     }
 
+    /**
+     * Cancel the [Job] launched with the corresponding view
+     */
     fun cancelJob(view: View) {
         map[view.hashCode()]
             ?.get()

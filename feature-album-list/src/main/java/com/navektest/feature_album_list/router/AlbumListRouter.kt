@@ -8,8 +8,9 @@ import com.navektest.core_ui.SnackBarDisplayer
 import com.navektest.core_ui.SnackBarDurationType
 import com.navektest.core_ui.SnackBarMessageType
 import com.navektest.feature_album_list.R
+import javax.inject.Inject
 
-class AlbumListRouter(private val activity: Activity,
+class AlbumListRouter @Inject constructor(private val activity: Activity,
                       private val detailNavigation: AlbumDetailNavigation,
                       private val snackBarDisplayer: SnackBarDisplayer, private val resourceResolver: ResourceResolver) {
 
