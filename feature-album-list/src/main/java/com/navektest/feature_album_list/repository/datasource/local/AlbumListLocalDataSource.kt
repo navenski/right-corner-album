@@ -5,9 +5,10 @@ import com.navektest.core_common.provider.CoroutineDispatcherProvider
 import com.navektest.core_database.daos.AlbumDao
 import com.navektest.core_database.entities.AlbumEntity
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AlbumListLocalDataSource(private val dispatcherProvider: CoroutineDispatcherProvider,
-                               private val albumDao: AlbumDao) {
+class AlbumListLocalDataSource @Inject constructor (private val dispatcherProvider: CoroutineDispatcherProvider,
+                                                    private val albumDao: AlbumDao) {
     suspend fun saveEntities(entities: List<AlbumEntity>) = withContext(dispatcherProvider.io()) {
         albumDao.insert(entities)
     }

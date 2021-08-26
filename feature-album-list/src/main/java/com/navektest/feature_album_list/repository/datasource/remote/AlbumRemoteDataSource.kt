@@ -4,6 +4,7 @@ import com.navektest.core_common.provider.CoroutineDispatcherProvider
 import com.navektest.core_common.networking.NetworkAvailabilityException
 import com.navektest.core_common.networking.NetworkStateAvailability
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 sealed class NetworkResult<T>
 
@@ -20,7 +21,7 @@ data class Error<T>(val exception: Exception) : NetworkResult<T>() {
  *  return [Success] server status response 200
  *  else return [Error]
  */
-class AlbumRemoteDataSource(private val dispatcherProvider: CoroutineDispatcherProvider,
+class AlbumRemoteDataSource @Inject constructor(private val dispatcherProvider: CoroutineDispatcherProvider,
                             private val albumApi: AlbumApi,
                             private val networkStateAvailability: NetworkStateAvailability) {
 

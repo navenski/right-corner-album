@@ -44,8 +44,7 @@ class AlbumListRepository(
     private val coroutineScope: CoroutineScope,
     private val remoteDataSource: AlbumRemoteDataSource,
     private val localDataSource: AlbumListLocalDataSource,
-    private val entityMapper: AlbumEntityMapper,
-    private val itemMapper: AlbumItemMapper,
+    private val entityMapper: AlbumEntityMapper
 ) {
     private val stateSharedFlow: MutableSharedFlow<AlbumSyncState> = MutableSharedFlow(replay = 1)
 
@@ -87,8 +86,8 @@ class AlbumListRepository(
         }
     }
 
-    fun getAlbums(): Flow<PagingData<AlbumItem>> {
-        return Pager(
+    fun getAlbums() =
+        Pager(
             config = PagingConfig(
                 pageSize = 60,
                 enablePlaceholders = false,
@@ -96,13 +95,5 @@ class AlbumListRepository(
             )
         ) {
             localDataSource.getPagedAlbums()
-        }.flow.map { pagingData ->
-            pagingData.map {
-                itemMapper.map(it)
-            }
         }
-            .distinctUntilChanged()
-            .flowOn(dispatcherProvider.default())
-            .cachedIn(coroutineScope)
-    }
 }

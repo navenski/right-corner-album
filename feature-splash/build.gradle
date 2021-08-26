@@ -56,7 +56,12 @@ dependencies {
     implementation libraries.ktxFragment
 
     //Test
-    testImplementation 'junit:junit:4.+'
+    //Test
+    testImplementation libraries.unitTest.junit
+    testImplementation libraries.unitTest.mockitoKotlin
+    testImplementation libraries.unitTest.mockito
+    testImplementation libraries.unitTest.robolectric
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

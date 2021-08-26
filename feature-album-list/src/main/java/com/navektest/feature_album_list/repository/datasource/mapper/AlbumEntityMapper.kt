@@ -3,8 +3,9 @@ package com.navektest.feature_album_list.repository.datasource.mapper
 import androidx.annotation.WorkerThread
 import com.navektest.core_database.entities.AlbumEntity
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumResponse
+import javax.inject.Inject
 
-class AlbumEntityMapper {
+class AlbumEntityMapper @Inject constructor() {
 
     @WorkerThread
     fun map(albumResponses: List<AlbumResponse>): List<AlbumEntity> {
