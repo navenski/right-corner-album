@@ -2,7 +2,6 @@ rootProject.name = "right_corner_album"
 include ':app'
 include ':feature-splash'
 include ':core-ui'
-include ':core-inject'
 include ':feature-album-list'
 include ':feature-album-detail'
 include ':local-datasource'

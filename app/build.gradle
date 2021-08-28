@@ -65,7 +65,6 @@ dependencies {
   implementation project(':feature-album-list')
   implementation project(':feature-album-detail')
   implementation project(':core-navigation')
-  implementation project(':core-inject')
   implementation project(':local-datasource')
   implementation project(':core-common')
 
