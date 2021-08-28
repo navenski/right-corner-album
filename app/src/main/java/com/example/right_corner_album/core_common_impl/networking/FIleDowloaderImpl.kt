@@ -1,6 +1,7 @@
 package com.example.right_corner_album.core_common_impl.networking
 
 import android.content.Context
+import com.navektest.core_common.file.FileStorage
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
 import com.navektest.core_common.networking.downloder.FileDownloadData
 import com.navektest.core_common.networking.downloder.FileDownloader
@@ -20,11 +21,13 @@ import javax.inject.Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class FileStorageDirectoryName
 
-class FileDownloaderImpl @Inject constructor(@ApplicationContext private val context: Context,
-                                             private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
-                                             private val bufferedSourceFileWriter: BufferedSourceFileWriter,
-                                             private val okHttpClient: OkHttpClient,
-                                             @FileStorageDirectoryName private val directoryName: String) : FileDownloader {
+class FileDownloaderImpl @Inject constructor(
+    private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
+    private val bufferedSourceFileWriter: BufferedSourceFileWriter,
+    private val okHttpClient: OkHttpClient,
+    private val fileStorage: FileStorage,
+    @FileStorageDirectoryName private val directoryName: String
+) : FileDownloader {
     override suspend fun downloadFile(url: String, filename: String): FileDownloadData {
         return withContext(coroutineDispatcherProvider.io()) {
             val request = Request.Builder()
@@ -37,9 +40,10 @@ class FileDownloaderImpl @Inject constructor(@ApplicationContext private val con
                         .execute()
 
                 val downloadedFile = getFile(filename)
-                val success = bufferedSourceFileWriter.write(response.body!!.source(), downloadedFile)
+                val success =
+                    bufferedSourceFileWriter.write(response.body!!.source(), downloadedFile)
                 response.close()
-                FileDownloadData(success, if (success)downloadedFile.absolutePath else "")
+                FileDownloadData(success, if (success) downloadedFile.absolutePath else "")
             } catch (exception: Exception) {
                 FileDownloadData(false, "")
             }
@@ -49,12 +53,12 @@ class FileDownloaderImpl @Inject constructor(@ApplicationContext private val con
     override suspend fun isFileAlreadyDownloaded(fileName: String): Boolean =
         withContext(coroutineDispatcherProvider.io()) { getFile(fileName).exists() }
 
-    override suspend fun getFileDownloadedPath(fileName: String): String = withContext(coroutineDispatcherProvider.io()) {
-        getFile(fileName).absolutePath
-    }
+    override suspend fun getFileDownloadedPath(fileName: String): String =
+        withContext(coroutineDispatcherProvider.io()) {
+            getFile(fileName).absolutePath
+        }
 
     private fun getFile(filename: String): File {
-        val fileDir = context.getDir(directoryName, Context.MODE_PRIVATE)
-        return File(fileDir, filename)
+        return fileStorage.getFile(directoryName, filename)
     }
 }

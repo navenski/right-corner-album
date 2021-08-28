@@ -39,7 +39,6 @@ class FileDownloaderImplTest {
         Dispatchers.resetMain()
     }
 
-    private val mockContext = mock<Context>()
     private val mockBufferedSourceFileWriter = mock<BufferedSourceFileWriter>()
     private val mockOkHttpClient = mock<OkHttpClient>()
     private val mockCall = mock<Call>()
