@@ -18,7 +18,5 @@ class AlbumItemViewHolder(private val binding: AlbumItemBinding,
         binding.viewModel = viewModel
         binding.scope = scope
         binding.model = model
-
-        binding.executePendingBindings()
     }
 }

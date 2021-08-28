@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.log
 
 @AndroidEntryPoint
 class AlbumListFragment : Fragment() {
@@ -28,9 +29,15 @@ class AlbumListFragment : Fragment() {
 
     private val viewModel: AlbumListViewModel by viewModels()
 
+
     private lateinit var binding: AlbumListFragmentBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        if (::binding.isInitialized){
+            return binding.root
+        }
+
         binding = AlbumListFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel

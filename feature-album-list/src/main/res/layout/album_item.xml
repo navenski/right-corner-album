@@ -39,6 +39,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:pictureProvider="@{filePathProvider}"
+      android:background="@color/grisaille"
       app:scope="@{scope}"
       app:url="@{model.thumbnailsUrl}"
       tools:srcCompat="@tools:sample/avatars" />
