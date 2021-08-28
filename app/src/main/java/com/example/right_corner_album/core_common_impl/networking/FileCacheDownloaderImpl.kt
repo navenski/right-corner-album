@@ -1,4 +1,4 @@
-package com.example.right_corner_album.core_common_impl.provider
+package com.example.right_corner_album.core_common_impl.networking
 
 import com.navektest.core_common.converter.Md5Converter
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
