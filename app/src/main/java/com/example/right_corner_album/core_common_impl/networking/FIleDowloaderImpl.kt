@@ -39,7 +39,7 @@ class FileDownloaderImpl @Inject constructor(@ApplicationContext private val con
                 val downloadedFile = getFile(filename)
                 val success = bufferedSourceFileWriter.write(response.body!!.source(), downloadedFile)
                 response.close()
-                FileDownloadData(success, downloadedFile.absolutePath)
+                FileDownloadData(success, if (success)downloadedFile.absolutePath else "")
             } catch (exception: Exception) {
                 FileDownloadData(false, "")
             }
