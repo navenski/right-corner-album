@@ -1,6 +1,7 @@
 package com.example.right_corner_album.core_common_impl.inject
 
 import com.example.right_corner_album.core_common_impl.converter.Md5ConverterImpl
+import com.example.right_corner_album.core_common_impl.file.FileStorageImpl
 import com.example.right_corner_album.core_common_impl.provider.CoroutineDispatcherProviderImpl
 import com.example.right_corner_album.core_common_impl.networking.FileDownloaderImpl
 import com.example.right_corner_album.core_common_impl.networking.FileStorageDirectoryName
@@ -8,6 +9,7 @@ import com.example.right_corner_album.core_common_impl.networking.NetworkStateAv
 import com.example.right_corner_album.core_common_impl.networking.FileCacheDownloaderImpl
 import com.example.right_corner_album.core_common_impl.resource.ResourceResolverImpl
 import com.navektest.core_common.converter.Md5Converter
+import com.navektest.core_common.file.FileStorage
 import com.navektest.core_common.networking.NetworkStateAvailability
 import com.navektest.core_common.networking.downloder.FileDownloader
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
@@ -51,6 +53,11 @@ abstract class CoreCommonBindingModule {
     abstract fun bindNetworkStateAvailabilityImpl(
         source: NetworkStateAvailabilityImpl
     ): NetworkStateAvailability
+
+    @Binds
+    abstract fun bindFileStorage(
+        source: FileStorageImpl
+    ): FileStorage
 }
 
 @Module

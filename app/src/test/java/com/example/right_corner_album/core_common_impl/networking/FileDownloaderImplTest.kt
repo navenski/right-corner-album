@@ -1,6 +1,7 @@
 package com.example.right_corner_album.core_common_impl.networking
 
 import android.content.Context
+import com.navektest.core_common.file.FileStorage
 import com.navektest.core_common.test.TestCoroutineDispatcherProvider
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
@@ -23,6 +24,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import java.io.File
+import java.nio.file.FileStore
+
 @RunWith(RobolectricTestRunner::class)
 class FileDownloaderImplTest {
 
@@ -39,35 +43,40 @@ class FileDownloaderImplTest {
         Dispatchers.resetMain()
     }
 
-    private val mockContext = mock<Context>()
     private val mockBufferedSourceFileWriter = mock<BufferedSourceFileWriter>()
     private val mockOkHttpClient = mock<OkHttpClient>()
     private val mockCall = mock<Call>()
     private val mockResponse = mock<Response>()
     private val mockBody = mock<ResponseBody>()
     private val mockBufferedSource = mock<BufferedSource>()
+    private val mockFileStorage = mock<FileStorage>()
+    private val mockFile = mock<File>()
 
     @Test
     fun testDownloadFileSuccess() = runBlocking {
         //Given setup
         val directoryName = "download"
+        val filePath = "$directoryName/blob2"
         whenever(mockOkHttpClient.newCall(any())) doReturn mockCall
         whenever(mockCall.execute()) doReturn mockResponse
         whenever(mockResponse.body) doReturn mockBody
         whenever(mockBody.source()) doReturn mockBufferedSource
         whenever(mockBufferedSourceFileWriter.write(any(), any())) doReturn true
+        whenever(mockFileStorage.getFile(any(), any())) doReturn mockFile
+        whenever(mockFile.absolutePath) doReturn filePath
 
         val downloader =
-            FileDownloaderImpl(mockContext,
-                               testDispatcherProvider,
-                               mockBufferedSourceFileWriter,
-                               mockOkHttpClient,
-                               directoryName)
+            FileDownloaderImpl(
+                testDispatcherProvider,
+                mockBufferedSourceFileWriter,
+                mockOkHttpClient,
+                mockFileStorage,
+                directoryName)
         //When
         val result = downloader.downloadFile("http://plop.com/01232", "blob2")
 
         assertTrue(result.isSuccess)
-        assertTrue(result.filePath.endsWith("blob2"))
+        assertEquals(filePath, result.filePath)
 
     }
 
@@ -75,18 +84,21 @@ class FileDownloaderImplTest {
     fun testDownloadFileErrorFileWriting() = runBlocking {
         //Given setup
         val directoryName = "download"
+        val filePath = "$directoryName/blob2"
         whenever(mockOkHttpClient.newCall(any())) doReturn mockCall
         whenever(mockCall.execute()) doReturn mockResponse
         whenever(mockResponse.body) doReturn mockBody
         whenever(mockBody.source()) doReturn mockBufferedSource
         whenever(mockBufferedSourceFileWriter.write(any(), any())) doReturn false
-
+        whenever(mockFileStorage.getFile(any(), any())) doReturn mockFile
+        whenever(mockFile.absolutePath) doReturn filePath
         val downloader =
-            FileDownloaderImpl(mockContext,
-                               testDispatcherProvider,
-                               mockBufferedSourceFileWriter,
-                               mockOkHttpClient,
-                               directoryName)
+            FileDownloaderImpl(
+                testDispatcherProvider,
+                mockBufferedSourceFileWriter,
+                mockOkHttpClient,
+                mockFileStorage,
+                directoryName)
         //When
         val result = downloader.downloadFile("http://plop.com/01232", "blob2")
 
@@ -98,18 +110,23 @@ class FileDownloaderImplTest {
     fun testDownloadFileErrorException() = runBlocking {
         //Given setup
         val directoryName = "download"
+        val filePath = "$directoryName/blob2"
+
         whenever(mockOkHttpClient.newCall(any())) doReturn mockCall
         whenever(mockCall.execute()) doReturn mockResponse
         whenever(mockResponse.body) doReturn null
         whenever(mockBody.source()) doReturn mockBufferedSource
         whenever(mockBufferedSourceFileWriter.write(any(), any())) doReturn true
+        whenever(mockFileStorage.getFile(any(), any())) doReturn mockFile
+        whenever(mockFile.absolutePath) doReturn filePath
 
         val downloader =
-            FileDownloaderImpl(mockContext,
-                               testDispatcherProvider,
-                               mockBufferedSourceFileWriter,
-                               mockOkHttpClient,
-                               directoryName)
+            FileDownloaderImpl(
+                testDispatcherProvider,
+                mockBufferedSourceFileWriter,
+                mockOkHttpClient,
+                mockFileStorage,
+                directoryName)
         //When
         val result = downloader.downloadFile("http://plop.com/01232", "blob2")
 
