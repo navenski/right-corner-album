@@ -47,10 +47,6 @@ object NetworkingModule {
     @Provides
     fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory = GsonConverterFactory.create(gson)
 
-    @Provides
-    fun provideNetworkStateAvailability(@ApplicationContext context: Context): NetworkStateAvailability =
-        NetworkStateAvailabilityImpl(context)
-
     @Singleton
     @Provides
     fun provideRetrofit(gsonConverterFactory: GsonConverterFactory, okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
@@ -58,12 +54,5 @@ object NetworkingModule {
         .client(okHttpClient)
         .addConverterFactory(gsonConverterFactory)
         .build()
-
-    @Provides
-    fun provideFileDownloader(@ApplicationContext context: Context,
-                              okHttpClient: OkHttpClient,
-                              coroutineDispatcherProvider: CoroutineDispatcherProvider): FileDownloader =
-        FileDownloaderImpl(context, coroutineDispatcherProvider, okHttpClient, Constant.pictureDirectoryName)
-
 
 }

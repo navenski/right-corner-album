@@ -4,6 +4,7 @@ import android.content.Context
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
 import com.navektest.core_common.networking.downloder.FileDownloadData
 import com.navektest.core_common.networking.downloder.FileDownloader
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -12,9 +13,18 @@ import okio.BufferedSink
 import okio.buffer
 import okio.sink
 import java.io.File
+import javax.inject.Inject
+import javax.inject.Qualifier
 
-class FileDownloaderImpl(private val context: Context, private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
-                         private val okHttpClient: OkHttpClient, private val directoryName: String) : FileDownloader {
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class FileStorageDirectoryName
+
+class FileDownloaderImpl @Inject constructor(@ApplicationContext private val context: Context,
+                                             private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
+                                             private val bufferedSourceFileWriter: BufferedSourceFileWriter,
+                                             private val okHttpClient: OkHttpClient,
+                                             @FileStorageDirectoryName private val directoryName: String) : FileDownloader {
     override suspend fun downloadFile(url: String, filename: String): FileDownloadData {
         return withContext(coroutineDispatcherProvider.io()) {
             val request = Request.Builder()
@@ -27,7 +37,7 @@ class FileDownloaderImpl(private val context: Context, private val coroutineDisp
                         .execute()
 
                 val downloadedFile = getFile(filename)
-                val success = writeResponseToFile(response, downloadedFile)
+                val success = bufferedSourceFileWriter.write(response.body!!.source(), downloadedFile)
                 response.close()
                 FileDownloadData(success, downloadedFile.absolutePath)
             } catch (exception: Exception) {
@@ -46,18 +56,5 @@ class FileDownloaderImpl(private val context: Context, private val coroutineDisp
     private fun getFile(filename: String): File {
         val fileDir = context.getDir(directoryName, Context.MODE_PRIVATE)
         return File(fileDir, filename)
-    }
-
-    private fun writeResponseToFile(response: Response, file: File): Boolean {
-        return try {
-            val sink: BufferedSink =
-                file.sink()
-                    .buffer()
-            sink.writeAll(response.body!!.source())
-            sink.close()
-            true
-        } catch (exception: Exception) {
-            false
-        }
     }
 }

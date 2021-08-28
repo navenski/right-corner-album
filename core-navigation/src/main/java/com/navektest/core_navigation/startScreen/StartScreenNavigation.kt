@@ -1,7 +1,9 @@
 package com.navektest.core_navigation.startScreen
 
-import android.content.Context
 
+/**
+ * Navigate to the start screen
+ */
 interface StartScreenNavigation {
     fun navigate()
 }

@@ -8,8 +8,10 @@ import androidx.annotation.IntegerRes
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import com.navektest.core_common.resource.ResourceResolver
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class ResourceResolverImpl(private val context: Context) : ResourceResolver {
+class ResourceResolverImpl @Inject constructor(@ApplicationContext private val context: Context) : ResourceResolver {
 
     override fun getBoolean(@BoolRes boolId: Int): Boolean {
         return context.resources.getBoolean(boolId)

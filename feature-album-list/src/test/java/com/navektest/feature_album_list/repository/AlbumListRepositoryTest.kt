@@ -1,14 +1,22 @@
 package com.navektest.feature_album_list.repository
 
+import com.navektest.core_common.networking.result.Error
 import com.navektest.core_common.networking.result.Success
 import com.navektest.core_common.test.TestCoroutineDispatcherProvider
-import com.navektest.feature_album_list.repository.datasource.local.AlbumListLocalDataSource
+import com.navektest.core_database.AlbumLocalDatasource
+import com.navektest.core_database.model.Album
 import com.navektest.feature_album_list.repository.datasource.mapper.AlbumEntityMapper
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumRemoteDataSource
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumResponse
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -27,6 +35,20 @@ class AlbumListRepositoryTest {
     private val testDispatcher = TestCoroutineDispatcher()
     private val testDispatcherProvider = TestCoroutineDispatcherProvider(testDispatcher)
 
+    val mockRemoteDataSource = mock<AlbumRemoteDataSource>()
+    val mockLocalDataSource = mock<AlbumLocalDatasource>()
+    val mockEntityMapper = mock<AlbumEntityMapper>()
+    val mockSuccesResponse = mock<Success<List<AlbumResponse>>>()
+    val mockErrorResponse = mock<Error<List<AlbumResponse>>>()
+    val mockData = mock<List<AlbumResponse>>()
+    val mockAlbum = mock<List<Album>>()
+
+    fun createRepo(coroutineScope: CoroutineScope) = AlbumListRepository(testDispatcherProvider,
+                                                                         coroutineScope,
+                                                                         mockRemoteDataSource,
+                                                                         mockLocalDataSource,
+                                                                         mockEntityMapper)
+
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
@@ -39,26 +61,56 @@ class AlbumListRepositoryTest {
 
     @Test
     fun testSyncWithServerSuccess() = runBlockingTest(testDispatcher) {
-        val mockRemoteDataSource = mock<AlbumRemoteDataSource>()
-        val mockLocalDataSource = mock<AlbumListLocalDataSource>()
-        val mockEntityMapper = mock<AlbumEntityMapper>()
-        val mockSuccesResponse = mock<Success<List<AlbumResponse>>>()
-        val mockData = mock<List<AlbumResponse>>()
+
         //Given remote  request succeed
         whenever(mockRemoteDataSource.getAlbums()) doReturn mockSuccesResponse
         whenever(mockSuccesResponse.data) doReturn mockData
-        val repository =
-            AlbumListRepository(testDispatcherProvider, this, mockRemoteDataSource, mockLocalDataSource, mockEntityMapper)
+        whenever(mockEntityMapper.map(any())) doReturn mockAlbum
+
+        val repository = createRepo(this)
+
+        //When syncWithServer
+        val firstState =
+            repository.observeSyncState()
+                .first()
+        repository.syncWithServer()
+
+        //Then ensure data flow correct
+        assertEquals(AlbumSyncState.None, firstState)
+        val state = repository.observeSyncState()
+            .first()
+        assertEquals(AlbumSyncState.Success, state)
+        //Then data store in local data source
+        verify(mockLocalDataSource, times(1)).save(mockAlbum)
+        verify(mockEntityMapper, times(1)).map(mockData)
+    }
+
+    @Test
+    fun testSyncWithServerError() = runBlockingTest(testDispatcher) {
+
+        //Given remote  request succeed
+        whenever(mockRemoteDataSource.getAlbums()) doReturn mockErrorResponse
+        whenever(mockSuccesResponse.data) doReturn mockData
+
+        val repository = createRepo(this)
 
         //When syncWithServer
         repository.syncWithServer()
 
-        //Then ensure data flow correct
-        val firstState = repository.observeSyncState().first()
-        assertEquals(AlbumSyncState.None, firstState)
-        repository.syncWithServer()
+        val state = repository.observeSyncState()
+            .first()
+
+        //Then
+        assertTrue(state is AlbumSyncState.Error)
+        verify(mockLocalDataSource, never()).save(any())
+        verify(mockEntityMapper, never()).map(any())
     }
 
-    fun testSyncWithServerError() {
+    @Test
+    fun testGetAlbums() = runBlockingTest(testDispatcher) {
+        val repository = createRepo(this)
+        //When
+        repository.getAlbums()
+        verify(mockLocalDataSource, times(1)).getPagedAlbums(any(), any())
     }
 }

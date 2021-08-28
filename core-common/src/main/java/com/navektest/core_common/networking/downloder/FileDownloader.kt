@@ -2,7 +2,7 @@ package com.navektest.core_common.networking.downloder
 
 /**
  * @param isSuccess : has the file download succeed.
- * @param filePath empty if
+ * @param filePath
  */
 data class FileDownloadData(val isSuccess: Boolean, val filePath:String)
 
@@ -24,7 +24,7 @@ interface FileDownloader {
     suspend fun isFileAlreadyDownloaded(fileName: String): Boolean
 
     /**
-     * Check if the file already stored on the internal storage
+     * Get the path location of the file
      */
     suspend fun getFileDownloadedPath(fileName: String): String
 }

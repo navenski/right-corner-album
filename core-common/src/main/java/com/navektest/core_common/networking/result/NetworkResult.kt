@@ -2,6 +2,9 @@ package com.navektest.core_common.networking.result
 
 import com.navektest.core_common.networking.NetworkAvailabilityException
 
+/**
+ * Data Holder for NetworkResult
+ */
 sealed class NetworkResult<T> {
     companion object {
         fun <T> error(exception: Exception) = Error<T>(exception)

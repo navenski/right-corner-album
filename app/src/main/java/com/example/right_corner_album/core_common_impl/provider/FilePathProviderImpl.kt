@@ -5,8 +5,9 @@ import com.navektest.core_common.provider.CoroutineDispatcherProvider
 import com.navektest.core_common.networking.downloder.FileDownloader
 import com.navektest.core_common.provider.FilePathProvider
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class FilePathProviderImpl(private val dispatcherProvider: CoroutineDispatcherProvider,
+class FilePathProviderImpl @Inject constructor(private val dispatcherProvider: CoroutineDispatcherProvider,
                            private val fileDownloader: FileDownloader,
                            private val md5Converter: Md5Converter) : FilePathProvider {
     override suspend fun provide(thumbnailUrl: String) = withContext(dispatcherProvider.default()) {
