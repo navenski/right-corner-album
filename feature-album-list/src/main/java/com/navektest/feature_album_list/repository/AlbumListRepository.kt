@@ -1,11 +1,9 @@
 package com.navektest.feature_album_list.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import com.navektest.core_common.networking.result.*
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
 import com.navektest.core_database.AlbumLocalDatasource
-import com.navektest.feature_album_list.repository.datasource.mapper.AlbumEntityMapper
+import com.navektest.feature_album_list.repository.datasource.mapper.AlbumMapper
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumRemoteDataSource
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumResponse
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +33,7 @@ class AlbumListRepository(
     private val coroutineScope: CoroutineScope,
     private val remoteDataSource: AlbumRemoteDataSource,
     private val localDataSource: AlbumLocalDatasource,
-    private val entityMapper: AlbumEntityMapper
+    private val mapper: AlbumMapper
 ) {
     private val stateSharedFlow: MutableSharedFlow<AlbumSyncState> = MutableSharedFlow(replay = 1)
 
@@ -72,7 +70,7 @@ class AlbumListRepository(
 
     private suspend fun saveLocalDataSource(albumResponses: List<AlbumResponse>) {
         return withContext(dispatcherProvider.default()) {
-            val entities = entityMapper.map(albumResponses)
+            val entities = mapper.map(albumResponses)
             localDataSource.save(entities)
         }
     }

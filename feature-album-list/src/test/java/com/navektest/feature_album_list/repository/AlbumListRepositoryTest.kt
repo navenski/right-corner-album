@@ -5,12 +5,11 @@ import com.navektest.core_common.networking.result.Success
 import com.navektest.core_common.test.TestCoroutineDispatcherProvider
 import com.navektest.core_database.AlbumLocalDatasource
 import com.navektest.core_database.model.Album
-import com.navektest.feature_album_list.repository.datasource.mapper.AlbumEntityMapper
+import com.navektest.feature_album_list.repository.datasource.mapper.AlbumMapper
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumRemoteDataSource
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumResponse
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.times
@@ -25,7 +24,6 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -37,7 +35,7 @@ class AlbumListRepositoryTest {
 
     val mockRemoteDataSource = mock<AlbumRemoteDataSource>()
     val mockLocalDataSource = mock<AlbumLocalDatasource>()
-    val mockEntityMapper = mock<AlbumEntityMapper>()
+    val mockEntityMapper = mock<AlbumMapper>()
     val mockSuccesResponse = mock<Success<List<AlbumResponse>>>()
     val mockErrorResponse = mock<Error<List<AlbumResponse>>>()
     val mockData = mock<List<AlbumResponse>>()

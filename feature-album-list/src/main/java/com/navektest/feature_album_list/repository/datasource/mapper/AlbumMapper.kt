@@ -5,7 +5,7 @@ import com.navektest.core_database.model.Album
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumResponse
 import javax.inject.Inject
 
-class AlbumEntityMapper @Inject constructor() {
+class AlbumMapper @Inject constructor() {
 
     @WorkerThread
     fun map(albumResponses: List<AlbumResponse>): List<Album> {
