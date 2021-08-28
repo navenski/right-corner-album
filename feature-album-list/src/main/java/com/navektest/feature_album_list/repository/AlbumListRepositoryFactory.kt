@@ -1,10 +1,9 @@
 package com.navektest.feature_album_list.repository
 
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
-import com.navektest.feature_album_list.repository.datasource.local.AlbumListLocalDataSource
+import com.navektest.core_database.AlbumLocalDatasource
 import com.navektest.feature_album_list.repository.datasource.mapper.AlbumEntityMapper
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumRemoteDataSource
-import com.navektest.feature_album_list.repository.mapper.AlbumItemMapper
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
@@ -14,7 +13,7 @@ import javax.inject.Inject
  */
 class AlbumListRepositoryFactory @Inject constructor(private val dispatcherProvider: CoroutineDispatcherProvider,
                                                      private val remoteDataSource: AlbumRemoteDataSource,
-                                                     private val localDataSource: AlbumListLocalDataSource,
+                                                     private val localDataSource: AlbumLocalDatasource,
                                                      private val entityMapper: AlbumEntityMapper) {
 
     fun create(coroutineScope: CoroutineScope): AlbumListRepository {

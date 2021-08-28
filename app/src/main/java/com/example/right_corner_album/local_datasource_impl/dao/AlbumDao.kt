@@ -1,11 +1,11 @@
-package com.navektest.core_database.daos
+package com.example.right_corner_album.local_datasource_impl.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.navektest.core_database.entities.AlbumEntity
+import com.example.right_corner_album.local_datasource_impl.entity.AlbumEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

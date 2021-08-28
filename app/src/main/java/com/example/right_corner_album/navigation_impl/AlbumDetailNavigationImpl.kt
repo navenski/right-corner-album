@@ -1,4 +1,4 @@
-package com.example.right_corner_album.navigation
+package com.example.right_corner_album.navigation_impl
 
 import android.app.Activity
 import androidx.core.os.bundleOf

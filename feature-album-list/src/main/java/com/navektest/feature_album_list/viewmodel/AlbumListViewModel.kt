@@ -31,7 +31,7 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
     val hasNoAlbums: ObservableBoolean = ObservableBoolean(false)
 
     val albums =
-        repository.getAlbums().flow.map { pagingData ->
+        repository.getAlbums().map { pagingData ->
             pagingData.map {
                 itemMapper.map(it)
             }

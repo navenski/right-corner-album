@@ -1,9 +1,9 @@
-package com.navektest.core_database
+package com.example.right_corner_album.local_datasource_impl
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.navektest.core_database.daos.AlbumDao
-import com.navektest.core_database.entities.AlbumEntity
+import com.example.right_corner_album.local_datasource_impl.dao.AlbumDao
+import com.example.right_corner_album.local_datasource_impl.entity.AlbumEntity
 
 @Database(version = 1,
           entities = [AlbumEntity::class])

@@ -1,17 +1,17 @@
 package com.navektest.feature_album_detail.repository.mapper
 
-import com.navektest.core_database.entities.AlbumEntity
+import com.navektest.core_database.model.Album
 import com.navektest.feature_album_detail.model.AlbumDetail
 import javax.inject.Inject
 
 class AlbumDetailMapper @Inject constructor() {
 
-    fun map(albumEntity: AlbumEntity): AlbumDetail {
+    fun map(album: Album): AlbumDetail {
         return AlbumDetail(
-            albumEntity.id,
-            albumEntity.title,
-            albumEntity.thumbnailUrl,
-            albumEntity.url
+            album.id,
+            album.title,
+            album.thumbnailUrl,
+            album.url
         )
     }
 

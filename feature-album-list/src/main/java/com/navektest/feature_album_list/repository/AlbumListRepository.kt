@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.navektest.core_common.networking.result.*
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
-import com.navektest.feature_album_list.repository.datasource.local.AlbumListLocalDataSource
+import com.navektest.core_database.AlbumLocalDatasource
 import com.navektest.feature_album_list.repository.datasource.mapper.AlbumEntityMapper
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumRemoteDataSource
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumResponse
@@ -34,7 +34,7 @@ class AlbumListRepository(
     private val dispatcherProvider: CoroutineDispatcherProvider,
     private val coroutineScope: CoroutineScope,
     private val remoteDataSource: AlbumRemoteDataSource,
-    private val localDataSource: AlbumListLocalDataSource,
+    private val localDataSource: AlbumLocalDatasource,
     private val entityMapper: AlbumEntityMapper
 ) {
     private val stateSharedFlow: MutableSharedFlow<AlbumSyncState> = MutableSharedFlow(replay = 1)
@@ -73,18 +73,9 @@ class AlbumListRepository(
     private suspend fun saveLocalDataSource(albumResponses: List<AlbumResponse>) {
         return withContext(dispatcherProvider.default()) {
             val entities = entityMapper.map(albumResponses)
-            localDataSource.saveEntities(entities)
+            localDataSource.save(entities)
         }
     }
 
-    fun getAlbums() =
-        Pager(
-            config = PagingConfig(
-                pageSize = 60,
-                enablePlaceholders = false,
-                maxSize = 200
-            )
-        ) {
-            localDataSource.getPagedAlbums()
-        }
+    fun getAlbums() = localDataSource.getPagedAlbums(60, 200)
 }

@@ -1,9 +1,7 @@
-package com.example.right_corner_album.navigation
+package com.example.right_corner_album.navigation_impl
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import com.example.right_corner_album.GlideActivity
 import com.example.right_corner_album.MainActivity
 import com.navektest.core_navigation.startScreen.StartScreenNavigation
 

@@ -66,7 +66,7 @@ dependencies {
   implementation project(':feature-album-detail')
   implementation project(':core-navigation')
   implementation project(':core-inject')
-  implementation project(':room-datasource')
+  implementation project(':local-datasource')
   implementation project(':core-common')
 
   // Room
