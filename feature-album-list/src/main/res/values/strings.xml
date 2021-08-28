@@ -4,4 +4,5 @@
   <string name="offline_mode">Mode Offline</string>
   <string name="no_album">Pas d\'album. Veuillez réessayer</string>
   <string name="retry">réessayer</string>
+  <string name="album">Album</string>
 </resources>

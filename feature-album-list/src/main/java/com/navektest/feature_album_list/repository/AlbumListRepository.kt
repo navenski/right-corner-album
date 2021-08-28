@@ -2,24 +2,15 @@ package com.navektest.feature_album_list.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import androidx.paging.map
+import com.navektest.core_common.networking.result.*
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
 import com.navektest.feature_album_list.repository.datasource.local.AlbumListLocalDataSource
 import com.navektest.feature_album_list.repository.datasource.mapper.AlbumEntityMapper
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumRemoteDataSource
 import com.navektest.feature_album_list.repository.datasource.remote.AlbumResponse
-import com.navektest.feature_album_list.repository.datasource.remote.Error
-import com.navektest.feature_album_list.repository.datasource.remote.Success
-import com.navektest.feature_album_list.repository.mapper.AlbumItemMapper
-import com.navektest.feature_album_list.model.AlbumItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 

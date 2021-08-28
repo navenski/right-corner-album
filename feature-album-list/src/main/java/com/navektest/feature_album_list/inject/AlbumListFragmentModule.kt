@@ -2,10 +2,7 @@ package com.navektest.feature_album_list.inject
 
 import android.app.Activity
 import android.content.Context
-import com.navektest.core_common.resource.ResourceResolver
-import com.navektest.core_navigation.albumdetail.AlbumDetailNavigation
 import com.navektest.core_ui.SnackBarDisplayer
-import com.navektest.feature_album_list.router.AlbumListRouter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

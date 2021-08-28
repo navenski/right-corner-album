@@ -20,7 +20,18 @@
     android:layout_height="match_parent"
     android:background="@color/silver"
     tools:context=".view.AlbumListFragment">
-
+    <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbarAlbum"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      android:elevation="10dp"
+      android:background="?attr/colorPrimary"
+      android:minHeight="?attr/actionBarSize"
+      android:theme="?attr/actionBarTheme"
+      app:layout_constraintTop_toTopOf="parent"
+      app:title="@string/album" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
       android:id="@+id/swipe"
@@ -30,7 +41,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/toolbarAlbum"
       app:layout_constraintVertical_bias="0.0"
       app:onRefreshListener="@{refreshListener}"
       app:refreshing="@{viewmodel.isLoading}">

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="right_corner_album.app" target="11" />
+      <module name="right_corner_album.core-common" target="11" />
+      <module name="right_corner_album.core-inject" target="11" />
+      <module name="right_corner_album.core-navigation" target="11" />
+      <module name="right_corner_album.core-ui" target="11" />
+      <module name="right_corner_album.feature-album-detail" target="11" />
+      <module name="right_corner_album.feature-album-list" target="11" />
+      <module name="right_corner_album.feature-splash" target="11" />
+      <module name="right_corner_album.room-datasource" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

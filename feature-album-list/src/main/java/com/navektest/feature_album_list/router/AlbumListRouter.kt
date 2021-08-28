@@ -1,7 +1,5 @@
 package com.navektest.feature_album_list.router
 
-import android.app.Activity
-import android.util.Log
 import com.navektest.core_common.resource.ResourceResolver
 import com.navektest.core_navigation.albumdetail.AlbumDetailNavigation
 import com.navektest.core_ui.SnackBarDisplayer
@@ -10,12 +8,12 @@ import com.navektest.core_ui.SnackBarMessageType
 import com.navektest.feature_album_list.R
 import javax.inject.Inject
 
-class AlbumListRouter @Inject constructor(private val activity: Activity,
+class AlbumListRouter @Inject constructor(
                       private val detailNavigation: AlbumDetailNavigation,
                       private val snackBarDisplayer: SnackBarDisplayer, private val resourceResolver: ResourceResolver) {
 
     fun navigateToDetails(albumId: Long) {
-        detailNavigation.navigateToDetail(activity, albumId)
+        detailNavigation.navigateToDetail(albumId)
     }
 
     fun displaySnackBarSuccess() {

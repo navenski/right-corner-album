@@ -46,7 +46,7 @@ dependencies {
   //Core-Features
   implementation project(':core-navigation')
   implementation project(':core-ui')
-  implementation project(':core-database')
+  implementation project(':room-datasource')
   implementation project(':core-common')
 
   // Room

@@ -6,6 +6,7 @@ import kotlinx.coroutines.Job
 import java.lang.ref.WeakReference
 
 /**
+ * Store and cancel job by using [ImageView] has key
  * Store [Job] into HashMap
  * Cancel [Job]
  */
@@ -24,7 +25,7 @@ internal class ImageJobsCanceller {
     /**
      * Cancel the [Job] launched with the corresponding view
      */
-    fun cancelJob(view: View) {
+    fun cancelJob(view: ImageView) {
         map[view.hashCode()]
             ?.get()
             ?.let { job ->

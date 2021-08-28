@@ -15,7 +15,7 @@ class SplashRouter @Inject constructor ( private val context: Activity, private 
      *
      */
     fun navigate() {
-        startScreenNavigation.navigate(context)
+        startScreenNavigation.navigate()
     }
 
     /**

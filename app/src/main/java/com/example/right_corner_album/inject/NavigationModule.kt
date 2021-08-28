@@ -1,24 +1,29 @@
 package com.example.right_corner_album.inject
 
+import android.app.Activity
 import com.example.right_corner_album.navigation.AlbumDetailNavigationImpl
+import com.example.right_corner_album.navigation.BackNavigationImpl
 import com.example.right_corner_album.navigation.StartScreenNavigationImpl
 import com.navektest.core_navigation.albumdetail.AlbumDetailNavigation
+import com.navektest.core_navigation.back.BackNavigation
 import com.navektest.core_navigation.startScreen.StartScreenNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityComponent::class)
 object NavigationModule {
 
-    @Singleton
     @Provides
-    fun provideAlbumListNavigation(): StartScreenNavigation = StartScreenNavigationImpl()
+    fun provideAlbumListNavigation(activity: Activity): StartScreenNavigation = StartScreenNavigationImpl(activity)
 
-    @Singleton
     @Provides
-    fun provideAlbumDetailNavigation() : AlbumDetailNavigation = AlbumDetailNavigationImpl()
+    fun provideAlbumDetailNavigation(activity: Activity) : AlbumDetailNavigation = AlbumDetailNavigationImpl(activity)
+
+    @Provides
+    fun provideBackNavigation(activity: Activity) : BackNavigation = BackNavigationImpl(activity)
 }

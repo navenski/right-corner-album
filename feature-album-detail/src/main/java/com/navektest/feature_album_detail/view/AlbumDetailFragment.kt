@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.navektest.core_common.provider.FilePathProvider
+import com.navektest.feature_album_detail.R
 import com.navektest.feature_album_detail.databinding.AlbumDetailFragmentBinding
+import com.navektest.feature_album_detail.router.AlbumDetailRouter
 import com.navektest.feature_album_detail.viewmodel.AlbumDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -16,17 +18,22 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AlbumDetailFragment : Fragment() {
     @Inject lateinit var filePathProvider: FilePathProvider
+    @Inject lateinit var router: AlbumDetailRouter
 
     private val viewModel: AlbumDetailViewModel by viewModels()
     private lateinit var binding: AlbumDetailFragmentBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        viewModel.bindRouter(router)
+
         binding = AlbumDetailFragmentBinding.inflate(inflater)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
         binding.scope = lifecycleScope
         binding.filePathProvider = filePathProvider
-
+        binding.toolbarDetail.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        binding.toolbarDetail.setNavigationOnClickListener { viewModel.close() }
         return binding.root
     }
 
