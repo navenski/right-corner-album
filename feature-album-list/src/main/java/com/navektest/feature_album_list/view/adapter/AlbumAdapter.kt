@@ -5,20 +5,19 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.navektest.core_common.provider.FilePathProvider
+import com.navektest.core_common.networking.downloder.FileCacheDownloader
 import com.navektest.feature_album_list.databinding.AlbumItemBinding
 import com.navektest.feature_album_list.model.AlbumItem
 import com.navektest.feature_album_list.viewmodel.AlbumListViewModel
 
-class AlbumAdapter(private val viewModel: AlbumListViewModel, private val filePathProvider: FilePathProvider, private val scope: LifecycleCoroutineScope) : PagingDataAdapter<AlbumItem, AlbumItemViewHolder>(diffCallback) {
+class AlbumAdapter(private val viewModel: AlbumListViewModel, private val fileCacheDownloader: FileCacheDownloader, private val scope: LifecycleCoroutineScope) : PagingDataAdapter<AlbumItem, AlbumItemViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: AlbumItemViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumItemViewHolder {
-        return AlbumItemViewHolder(AlbumItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),viewModel, filePathProvider, scope)
+        return AlbumItemViewHolder(AlbumItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),viewModel, fileCacheDownloader, scope)
     }
 
     companion object{

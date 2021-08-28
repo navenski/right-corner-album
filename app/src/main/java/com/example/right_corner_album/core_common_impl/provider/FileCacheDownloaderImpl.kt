@@ -3,14 +3,15 @@ package com.example.right_corner_album.core_common_impl.provider
 import com.navektest.core_common.converter.Md5Converter
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
 import com.navektest.core_common.networking.downloder.FileDownloader
-import com.navektest.core_common.provider.FilePathProvider
+import com.navektest.core_common.networking.downloder.FileCacheDownloader
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class FilePathProviderImpl @Inject constructor(private val dispatcherProvider: CoroutineDispatcherProvider,
-                           private val fileDownloader: FileDownloader,
-                           private val md5Converter: Md5Converter) : FilePathProvider {
-    override suspend fun provide(thumbnailUrl: String) = withContext(dispatcherProvider.default()) {
+class FileCacheDownloaderImpl @Inject constructor(private val dispatcherProvider: CoroutineDispatcherProvider,
+                                                  private val fileDownloader: FileDownloader,
+                                                  private val md5Converter: Md5Converter) :
+    FileCacheDownloader {
+    override suspend fun tryDownload(thumbnailUrl: String) = withContext(dispatcherProvider.default()) {
         try {
             val md5FileName = md5Converter.convert(thumbnailUrl)
 

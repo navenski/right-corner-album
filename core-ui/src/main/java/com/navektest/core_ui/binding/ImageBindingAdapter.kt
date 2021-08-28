@@ -6,7 +6,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.core_ui.R
-import com.navektest.core_common.provider.FilePathProvider
+import com.navektest.core_common.networking.downloder.FileCacheDownloader
 import com.navektest.core_ui.canceller.ImageJobsCanceller
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -23,12 +23,12 @@ object ImageBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["url", "scope", "pictureProvider"], requireAll = true)
-    fun setUrl(image: ImageView, url: String, scope: CoroutineScope, pictureProvider: FilePathProvider) {
+    fun setUrl(image: ImageView, url: String, scope: CoroutineScope, pictureProvider: FileCacheDownloader) {
         image.setImageDrawable(null)
         imageJobCanceller.cancelJob(image)
         scope.launch {
             try {
-                val filePath = pictureProvider.provide(url)
+                val filePath = pictureProvider.tryDownload(url)
                 if (filePath.isNotEmpty()) {
                     loadImage(filePath, image)
                 } else
@@ -47,16 +47,17 @@ object ImageBindingAdapter {
                 pictureUrl: String?,
                 thumbnailUrl: String?,
                 scope: CoroutineScope,
-                pictureProvider: FilePathProvider) {
+                pictureProvider: FileCacheDownloader
+    ) {
         image.setImageDrawable(null)
         scope.launch {
             try {
                 val nonNullPictureUrl = pictureUrl ?: ""
                 val nonNullThumbnailUrl = thumbnailUrl ?: ""
 
-                var filePath = pictureProvider.provide(nonNullPictureUrl)
+                var filePath = pictureProvider.tryDownload(nonNullPictureUrl)
                 if (filePath.isEmpty()) {
-                    filePath = pictureProvider.provide(nonNullThumbnailUrl)
+                    filePath = pictureProvider.tryDownload(nonNullThumbnailUrl)
                 }
 
                 if (filePath.isNotEmpty()) {

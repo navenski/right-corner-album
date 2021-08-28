@@ -15,7 +15,7 @@
 
     <variable
       name="filePathProvider"
-      type="com.navektest.core_common.provider.FilePathProvider" />
+      type="com.navektest.core_common.networking.downloder.FileCacheDownloader" />
 
     <variable
       name="viewModel"

@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.navektest.core_common.provider.FilePathProvider
+import com.navektest.core_common.networking.downloder.FileCacheDownloader
 import com.navektest.core_ui.itemdecoration.GridSpacingItemDecoration
 import com.navektest.feature_album_list.databinding.AlbumListFragmentBinding
 import com.navektest.feature_album_list.router.AlbumListRouter
@@ -24,7 +24,7 @@ import javax.inject.Inject
 class AlbumListFragment : Fragment() {
 
     @Inject lateinit var router: AlbumListRouter
-    @Inject lateinit var filePathProvider: FilePathProvider
+    @Inject lateinit var fileCacheDownloader: FileCacheDownloader
 
     private val viewModel: AlbumListViewModel by viewModels()
 
@@ -35,7 +35,7 @@ class AlbumListFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
         viewModel.bindRouter(router)
-        val adapter = AlbumAdapter(viewModel, filePathProvider, lifecycleScope)
+        val adapter = AlbumAdapter(viewModel, fileCacheDownloader, lifecycleScope)
         val spanCount = 3
         binding.recycler.layoutManager = GridLayoutManager(context, spanCount)
         val itemDecoration = GridSpacingItemDecoration(spanCount, 20, true)
