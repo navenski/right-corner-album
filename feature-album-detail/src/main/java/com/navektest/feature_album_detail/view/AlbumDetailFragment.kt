@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.navektest.core_common.provider.FilePathProvider
+import com.navektest.core_common.networking.downloder.FileCacheDownloader
 import com.navektest.feature_album_detail.R
 import com.navektest.feature_album_detail.databinding.AlbumDetailFragmentBinding
 import com.navektest.feature_album_detail.router.AlbumDetailRouter
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AlbumDetailFragment : Fragment() {
-    @Inject lateinit var filePathProvider: FilePathProvider
+    @Inject lateinit var fileCacheDownloader: FileCacheDownloader
     @Inject lateinit var router: AlbumDetailRouter
 
     private val viewModel: AlbumDetailViewModel by viewModels()
@@ -31,7 +31,7 @@ class AlbumDetailFragment : Fragment() {
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
         binding.scope = lifecycleScope
-        binding.filePathProvider = filePathProvider
+        binding.filePathProvider = fileCacheDownloader
         binding.toolbarDetail.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
         binding.toolbarDetail.setNavigationOnClickListener { viewModel.close() }
         return binding.root

@@ -1,4 +1,4 @@
-package com.example.right_corner_album.core_common_impl.dispatcher
+package com.example.right_corner_album.core_common_impl.provider
 
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher

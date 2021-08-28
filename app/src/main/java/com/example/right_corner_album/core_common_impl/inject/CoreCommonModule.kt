@@ -1,17 +1,17 @@
 package com.example.right_corner_album.core_common_impl.inject
 
 import com.example.right_corner_album.core_common_impl.converter.Md5ConverterImpl
-import com.example.right_corner_album.core_common_impl.dispatcher.CoroutineDispatcherProviderImpl
+import com.example.right_corner_album.core_common_impl.provider.CoroutineDispatcherProviderImpl
 import com.example.right_corner_album.core_common_impl.networking.FileDownloaderImpl
 import com.example.right_corner_album.core_common_impl.networking.FileStorageDirectoryName
 import com.example.right_corner_album.core_common_impl.networking.NetworkStateAvailabilityImpl
-import com.example.right_corner_album.core_common_impl.provider.FilePathProviderImpl
+import com.example.right_corner_album.core_common_impl.networking.FileCacheDownloaderImpl
 import com.example.right_corner_album.core_common_impl.resource.ResourceResolverImpl
 import com.navektest.core_common.converter.Md5Converter
 import com.navektest.core_common.networking.NetworkStateAvailability
 import com.navektest.core_common.networking.downloder.FileDownloader
 import com.navektest.core_common.provider.CoroutineDispatcherProvider
-import com.navektest.core_common.provider.FilePathProvider
+import com.navektest.core_common.networking.downloder.FileCacheDownloader
 import com.navektest.core_common.resource.ResourceResolver
 import dagger.Binds
 import dagger.Module
@@ -39,8 +39,8 @@ abstract class CoreCommonBindingModule {
 
     @Binds
     abstract fun bindFilePathProviderl(
-        source: FilePathProviderImpl
-    ): FilePathProvider
+        source: FileCacheDownloaderImpl
+    ): FileCacheDownloader
 
     @Binds
     abstract fun bindResourceResolver(
