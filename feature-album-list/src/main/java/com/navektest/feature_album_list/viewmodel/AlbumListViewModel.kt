@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumListRepositoryFactory,
-                                             private val dispatcherProvider: CoroutineDispatcherProvider,
+                                             dispatcherProvider: CoroutineDispatcherProvider,
                                              private val itemMapper: AlbumItemMapper) : ViewModel() {
     private var routerWeakRef = WeakReference<AlbumListRouter>(null)
     private val repository = albumListRepositoryFactory.create(viewModelScope)
