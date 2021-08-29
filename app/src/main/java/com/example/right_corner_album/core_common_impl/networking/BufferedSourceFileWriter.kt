@@ -11,12 +11,15 @@ import javax.inject.Inject
 /**
  * Write [BufferedSource] to [File]
  */
-class BufferedSourceFileWriter @Inject constructor(){
+class BufferedSourceFileWriter @Inject constructor() {
 
     /**
      * Write [BufferedSource] to [File]
+     * @param source
+     * @param file
+     * @return  {true}=success {false}= error
      */
-     fun write(source: BufferedSource, file: File): Boolean {
+    fun write(source: BufferedSource, file: File): Boolean {
         return try {
             val sink: BufferedSink =
                 file.sink()
