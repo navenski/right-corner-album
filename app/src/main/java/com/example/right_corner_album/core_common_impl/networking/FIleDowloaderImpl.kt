@@ -53,7 +53,7 @@ class FileDownloaderImpl @Inject constructor(
     override suspend fun isFileAlreadyDownloaded(fileName: String): Boolean =
         withContext(coroutineDispatcherProvider.io()) { getFile(fileName).exists() }
 
-    override suspend fun getFileDownloadedPath(fileName: String): String =
+    override suspend fun getDownloadedFilePath(fileName: String): String =
         withContext(coroutineDispatcherProvider.io()) {
             getFile(fileName).absolutePath
         }

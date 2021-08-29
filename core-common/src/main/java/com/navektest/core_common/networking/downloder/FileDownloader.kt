@@ -24,7 +24,7 @@ interface FileDownloader {
     suspend fun isFileAlreadyDownloaded(fileName: String): Boolean
 
     /**
-     * Get the path location of the file
+     * Get the path location of the already downloaded file
      */
-    suspend fun getFileDownloadedPath(fileName: String): String
+    suspend fun getDownloadedFilePath(fileName: String): String
 }

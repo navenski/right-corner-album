@@ -1,11 +1,9 @@
 package com.example.right_corner_album.core_common_impl.networking
 
-import android.content.Context
 import com.navektest.core_common.file.FileStorage
 import com.navektest.core_common.test.TestCoroutineDispatcherProvider
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.Dispatchers
@@ -22,12 +20,8 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import java.io.File
-import java.nio.file.FileStore
 
-@RunWith(RobolectricTestRunner::class)
 class FileDownloaderImplTest {
 
     private val testDispatcher = TestCoroutineDispatcher()

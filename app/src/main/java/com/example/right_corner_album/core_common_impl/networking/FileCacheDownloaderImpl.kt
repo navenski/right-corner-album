@@ -16,7 +16,7 @@ class FileCacheDownloaderImpl @Inject constructor(private val dispatcherProvider
             val md5FileName = md5Converter.convert(thumbnailUrl)
 
             if (fileDownloader.isFileAlreadyDownloaded(md5FileName)) {
-                return@withContext fileDownloader.getFileDownloadedPath(md5FileName)
+                return@withContext fileDownloader.getDownloadedFilePath(md5FileName)
             }
 
             val fileData = fileDownloader.downloadFile(thumbnailUrl, md5FileName)

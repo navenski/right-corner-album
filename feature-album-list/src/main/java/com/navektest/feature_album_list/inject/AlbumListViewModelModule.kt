@@ -12,5 +12,4 @@ import retrofit2.Retrofit
 object AlbumListViewModelModule {
     @Provides
     fun provideAlbumApi(retrofit: Retrofit): AlbumApi = retrofit.create(AlbumApi::class.java)
-
 }

@@ -1,6 +1,5 @@
 package com.navektest.core_ui.canceller
 
-import android.view.View
 import android.widget.ImageView
 import kotlinx.coroutines.Job
 import java.lang.ref.WeakReference
