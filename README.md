@@ -4,7 +4,7 @@ Support offline navigation.
 
 
 Technical stack:
-Mvvm-hilt-coroutines-jetpack navigation, architecture, databinding, room-glide-retrofit
+Mvvm-hilt-coroutines-jetpack navigation, architecture, databinding, room, paging library-glide-retrofit
 
 Application Architecture overview 1
 ![image](https://user-images.githubusercontent.com/47614526/131268911-8ef7851d-4066-465f-b750-6abbf0b740a5.png)
