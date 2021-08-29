@@ -3,7 +3,7 @@ Sample android  application that show a list of album and navigate to the detail
 Support offline navigation.
 
 
-Technical stack:
+<h3>Technical stack:</h1>
 Mvvm-hilt-coroutines-jetpack navigation, architecture, databinding, room, paging library-glide-retrofit
 
 Application Architecture overview 1
