@@ -1,5 +1,8 @@
 # right-corner-album
 Sample android  application that show a list of album and navigate to the details of the album title.
+Support offline navigation.
+
+
 Technical stack:
 Mvvm-hilt-coroutines-jetpack navigation, architecture, databinding, room
 
