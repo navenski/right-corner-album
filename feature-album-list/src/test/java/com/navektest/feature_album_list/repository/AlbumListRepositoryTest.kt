@@ -33,13 +33,13 @@ class AlbumListRepositoryTest {
     private val testDispatcher = TestCoroutineDispatcher()
     private val testDispatcherProvider = TestCoroutineDispatcherProvider(testDispatcher)
 
-    val mockRemoteDataSource = mock<AlbumRemoteDataSource>()
-    val mockLocalDataSource = mock<AlbumLocalDatasource>()
-    val mockEntityMapper = mock<AlbumMapper>()
-    val mockSuccesResponse = mock<Success<List<AlbumResponse>>>()
-    val mockErrorResponse = mock<Error<List<AlbumResponse>>>()
-    val mockData = mock<List<AlbumResponse>>()
-    val mockAlbum = mock<List<Album>>()
+    private val mockRemoteDataSource = mock<AlbumRemoteDataSource>()
+    private val mockLocalDataSource = mock<AlbumLocalDatasource>()
+    private val mockEntityMapper = mock<AlbumMapper>()
+    private val mockSuccesResponse = mock<Success<List<AlbumResponse>>>()
+    private val mockErrorResponse = mock<Error<List<AlbumResponse>>>()
+    private val mockData = mock<List<AlbumResponse>>()
+    private val mockAlbum = mock<List<Album>>()
 
     fun createRepo(coroutineScope: CoroutineScope) = AlbumListRepository(testDispatcherProvider,
                                                                          coroutineScope,

@@ -9,6 +9,7 @@ data class FileDownloadData(val isSuccess: Boolean, val filePath:String)
 /**
  * File downloader class.
  * Download file and store it in the internal storage directory
+ * If the file already exist on the internal storage, it will be replaced
  */
 interface FileDownloader {
     /**

@@ -25,11 +25,12 @@ class AlbumDetailViewModel @Inject constructor(private val repository: AlbumDeta
         }
     }
 
-    fun bindRouter(router: AlbumDetailRouter){
+    fun bindRouter(router: AlbumDetailRouter) {
         routerWeakRef = WeakReference(router)
     }
 
-    fun close(){
-        routerWeakRef.get()?.close()
+    fun close() {
+        routerWeakRef.get()
+            ?.close()
     }
 }

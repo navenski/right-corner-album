@@ -7,7 +7,7 @@ import java.io.File
  */
 interface FileStorage {
     /**
-     * Get or create a file from the internal storagee
+     * Get or create a file from the internal storage
      * @param filename the file name to retrieve or create
      * @param directory Name of the directory to retrieve.This is a directory
      * that is created as part of your application data.
