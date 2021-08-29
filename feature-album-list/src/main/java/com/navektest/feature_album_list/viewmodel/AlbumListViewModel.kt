@@ -31,11 +31,12 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
     val hasNoAlbums: ObservableBoolean = ObservableBoolean(false)
 
     val albums =
-        repository.getAlbums().map { pagingData ->
-            pagingData.map {
-                itemMapper.map(it)
+        repository.getAlbums()
+            .map { pagingData ->
+                pagingData.map {
+                    itemMapper.map(it)
+                }
             }
-        }
             .distinctUntilChanged()
             .flowOn(dispatcherProvider.default())
             .cachedIn(viewModelScope)
@@ -76,16 +77,12 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
         }
     }
 
-    fun navigateToDetails(albumItem: AlbumItem) {
-        routerWeakRef.get()
-            ?.navigateToDetails(albumItem.id)
-    }
+    fun navigateToDetails(albumItem: AlbumItem) = routerWeakRef.get()?.navigateToDetails(albumItem.id)
+
 
     fun bindRouter(router: AlbumListRouter) {
         routerWeakRef = WeakReference(router)
     }
 
-    fun refresh() {
-        viewModelScope.launch { repository.syncWithServer() }
-    }
+    fun refresh() = viewModelScope.launch { repository.syncWithServer() }
 }

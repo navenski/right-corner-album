@@ -7,4 +7,6 @@ class AlbumListViewModelTest {
     fun testAlbumSyncStateStateSuccess() {}
     fun testAlbumSyncStateStateError() {}
     fun testAlbumSyncStateStateNone() {}
+
+    fun testHasNoAlbum(){}
 }
