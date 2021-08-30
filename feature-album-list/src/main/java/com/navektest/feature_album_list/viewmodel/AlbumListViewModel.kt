@@ -26,7 +26,7 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
                                              private val itemMapper: AlbumItemMapper) : ViewModel() {
     private var routerWeakRef = WeakReference<AlbumListRouter>(null)
     private val repository = albumListRepositoryFactory.create(viewModelScope)
-
+    private var isInitialized = false
     val isLoading: ObservableBoolean = ObservableBoolean(false)
     val hasNoAlbums: ObservableBoolean = ObservableBoolean(false)
 
@@ -45,6 +45,10 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
      * Initialize the viewmodel calls
      */
     fun initialize() {
+        if (isInitialized)
+            return
+
+        isInitialized = true
         observeSyncStatus()
         viewModelScope.launch {
             repository.syncWithServer()
