@@ -41,17 +41,19 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
             .flowOn(dispatcherProvider.default())
             .cachedIn(viewModelScope)
 
-    init {
+    /**
+     * Initialize the viewmodel calls
+     */
+    fun initialize() {
         viewModelScope.launch {
             repository.syncWithServer()
             repository.hasAnyAlbum()
                 .collect { hasNoAlbums.set(!it) }
+            observeSyncStatus()
         }
-        observeSyncStatus()
     }
 
-    private fun observeSyncStatus() {
-        viewModelScope.launch {
+    private suspend fun observeSyncStatus() {
             repository.observeSyncState()
                 .collect {
                     when (it) {
@@ -74,7 +76,7 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
                         }
                     }
                 }
-        }
+
     }
 
     fun navigateToDetails(albumItem: AlbumItem) = routerWeakRef.get()?.navigateToDetails(albumItem.id)

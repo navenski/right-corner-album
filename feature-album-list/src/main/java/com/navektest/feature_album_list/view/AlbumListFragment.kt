@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 @AndroidEntryPoint
 class AlbumListFragment : Fragment() {
@@ -34,7 +33,7 @@ class AlbumListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        if (::binding.isInitialized){
+        if (::binding.isInitialized) {
             return binding.root
         }
 
@@ -42,6 +41,7 @@ class AlbumListFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
         viewModel.bindRouter(router)
+        viewModel.initialize()
         val adapter = AlbumAdapter(viewModel, fileCacheDownloader, lifecycleScope)
         val spanCount = 3
         binding.recycler.layoutManager = GridLayoutManager(context, spanCount)
