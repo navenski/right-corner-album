@@ -45,42 +45,41 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
      * Initialize the viewmodel calls
      */
     fun initialize() {
+        observeSyncStatus()
         viewModelScope.launch {
             repository.syncWithServer()
             repository.hasAnyAlbum()
                 .collect { hasNoAlbums.set(!it) }
-            observeSyncStatus()
         }
     }
 
-    private suspend fun observeSyncStatus() {
-            repository.observeSyncState()
-                .collect {
-                    when (it) {
-                        is AlbumSyncState.Loading -> {
-                            isLoading.set(true)
-                        }
-                        is AlbumSyncState.Success -> {
-                            isLoading.set(false)
-                            routerWeakRef.get()
-                                ?.displaySnackBarSuccess()
-                        }
-                        is AlbumSyncState.Error -> {
-                            isLoading.set(false)
-                            routerWeakRef.get()
-                                ?.displaySnackBarError(!it.isNetworkAvailable)
-                        }
+    private fun observeSyncStatus() = viewModelScope.launch {
+        repository.observeSyncState()
+            .collect {
+                when (it) {
+                    is AlbumSyncState.Loading -> {
+                        isLoading.set(true)
+                    }
+                    is AlbumSyncState.Success -> {
+                        isLoading.set(false)
+                        routerWeakRef.get()
+                            ?.displaySnackBarSuccess()
+                    }
+                    is AlbumSyncState.Error -> {
+                        isLoading.set(false)
+                        routerWeakRef.get()
+                            ?.displaySnackBarError(!it.isNetworkAvailable)
+                    }
 
-                        is AlbumSyncState.None -> {
-                            isLoading.set(false)
-                        }
+                    is AlbumSyncState.None -> {
+                        isLoading.set(false)
                     }
                 }
-
+            }
     }
 
-    fun navigateToDetails(albumItem: AlbumItem) = routerWeakRef.get()?.navigateToDetails(albumItem.id)
-
+    fun navigateToDetails(albumItem: AlbumItem) = routerWeakRef.get()
+        ?.navigateToDetails(albumItem.id)
 
     fun bindRouter(router: AlbumListRouter) {
         routerWeakRef = WeakReference(router)
