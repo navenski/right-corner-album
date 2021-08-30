@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -33,7 +34,7 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
 
     val albums =
         repository.getAlbums()
-            .catch { } //Do nothing
+            .catch { Timber.e("getAlbums from repository error", it) }
             .map { pagingData ->
                 pagingData.map {
                     itemMapper.map(it)
@@ -55,7 +56,7 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
         viewModelScope.launch {
             repository.syncWithServer()
             repository.hasAnyAlbum()
-                .catch { } //Do nothing
+                .catch { Timber.w("error when observing hasAnyAlbum") }
                 .collect { hasNoAlbums.set(!it) }
         }
     }
@@ -98,4 +99,5 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
     }
 
     fun refresh() = viewModelScope.launch { repository.syncWithServer() }
+
 }

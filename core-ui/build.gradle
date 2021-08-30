@@ -55,7 +55,7 @@ dependencies {
     implementation libraries.glide.lib
     kapt libraries.glide.compiler
     implementation libraries.glide.okhttp3
-
+    implementation libraries.timber
     //Test
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

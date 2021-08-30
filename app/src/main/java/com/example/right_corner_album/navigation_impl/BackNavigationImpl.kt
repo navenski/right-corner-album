@@ -7,7 +7,6 @@ import com.navektest.core_navigation.back.BackNavigation
 
 class BackNavigationImpl(private val activity: Activity) : BackNavigation {
     override fun navigateBack() {
-        activity.findNavController(R.id.nav_host_fragment)
-            .popBackStack()
+        activity.tryFindNavController(R.id.nav_host_fragment)?.popBackStack()
     }
 }

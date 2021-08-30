@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.navektest.core_common.networking.downloder.FileCacheDownloader
-import com.navektest.feature_album_detail.R
 import com.navektest.feature_album_detail.databinding.AlbumDetailFragmentBinding
 import com.navektest.feature_album_detail.router.AlbumDetailRouter
 import com.navektest.feature_album_detail.viewmodel.AlbumDetailViewModel

@@ -2,7 +2,7 @@
 ext {
 
   libraries = [
-
+      "timber"                 : "com.jakewharton.timber:timber:$timber_version",
       "ktxCore"                : "androidx.core:core-ktx:$ktx_core_version",
       "ktxFragment"            : "androidx.fragment:fragment-ktx:$ktx_fragment_version",
       "appcompat"              : "androidx.appcompat:appcompat:$app_compat_version",
@@ -29,7 +29,7 @@ ext {
       //Kotlin
       "kotlinReflect"          : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
       "kotlin_coroutines"      : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version",
-      "kotlin_coroutines_test"      : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlin_coroutines_version",
+      "kotlin_coroutines_test" : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlin_coroutines_version",
       "ktx_viewmodel"          : "androidx.lifecycle:lifecycle-viewmodel-ktx:$ktx_viewmodel_version",
       "desugarJdkLib"          : "com.android.tools:desugar_jdk_libs:$desugarJdkLibVersion",
       //Glide
@@ -44,6 +44,7 @@ ext {
           "loggingInterceptor": "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
           "retrofit"          : "com.squareup.retrofit2:retrofit:$retrofit_version",
           "retrofitConverter" : "com.squareup.retrofit2:converter-gson:$retrofit_version",
+          "leakCanary"        : "com.squareup.leakcanary:leakcanary-android:$leak_canary_version",
       ],
       //UnitTest
       "unitTest"               : [

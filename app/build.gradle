@@ -93,12 +93,14 @@ dependencies {
   implementation libraries.squareup.loggingInterceptor
   implementation libraries.squareup.retrofit
   implementation libraries.squareup.retrofitConverter
+  debugImplementation libraries.squareup.leakCanary
 
 
   //Paging
   implementation libraries.paging
   //Swipe-Refresh
   implementation libraries.swiperefreshlayout
+  implementation libraries.timber
 
   //Test
   testImplementation libraries.unitTest.junit

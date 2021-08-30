@@ -13,12 +13,12 @@ import com.navektest.core_common.networking.downloder.FileCacheDownloader
 import com.navektest.core_ui.canceller.ImageJobsCanceller
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.File
 import java.lang.Exception
 
 /**
  *  BindingAdapter.
- *
  */
 object DetailBindingAdapter {
 
@@ -34,10 +34,9 @@ object DetailBindingAdapter {
                 val filePath = pictureProvider.tryDownload(url)
                 if (filePath.isNotEmpty()) {
                     loadImage(filePath, image)
-                } else
-                    image.setImageResource(R.drawable.ic_gallery)
+                }
             } catch (exception: Exception) {
-                Log.e("ImageDataBindingAdapter", "error", exception)
+                Timber.e("ImageDataBindingAdapter", "error", exception)
             }
         } .apply {
             imageJobCanceller.addJob(image, this)
@@ -53,6 +52,7 @@ object DetailBindingAdapter {
                 pictureProvider: FileCacheDownloader
     ) {
         image.setImageDrawable(null)
+        imageJobCanceller.cancelJob(image)
         scope.launch {
             try {
                 val nonNullPictureUrl = pictureUrl ?: ""
@@ -65,18 +65,18 @@ object DetailBindingAdapter {
 
                 if (filePath.isNotEmpty()) {
                     loadImage(filePath, image)
-                } else
-                    image.setImageResource(R.drawable.ic_gallery)
+                }
             } catch (exception: Exception) {
-                Log.e("ImageDataBindingAdapter", "error", exception)
+                Timber.e("ImageDataBindingAdapter", "error", exception)
             }
+        }.apply {
+            imageJobCanceller.addJob(image, this)
         }
     }
 
     private fun loadImage(fileName: String, imageView: ImageView) {
         Glide.with(imageView)
             .load(File(fileName))
-            .error(R.drawable.ic_gallery)
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
@@ -104,4 +104,11 @@ object DetailBindingAdapter {
     fun onNavigationClick(view: Toolbar, listener: View.OnClickListener) {
         view.setNavigationOnClickListener(listener)
     }
+
+    @JvmStatic
+    @BindingAdapter("visibleOrGone")
+    fun setVisibleOrGone(view: View, visible: Boolean) {
+        view.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
 }

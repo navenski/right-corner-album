@@ -80,7 +80,7 @@ dependencies {
 
   //Swipe-Refresh
   implementation libraries.swiperefreshlayout
-
+  implementation libraries.timber
   //Test
   testImplementation libraries.unitTest.junit
   testImplementation libraries.unitTest.mockitoKotlin

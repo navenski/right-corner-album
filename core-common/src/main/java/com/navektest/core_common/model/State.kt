@@ -31,7 +31,7 @@ open class StateDataModel<T> protected constructor(
             )
         }
 
-        fun <T> error(error: Throwable): StateDataModel<T> {
+        fun <T> error(error: Throwable? =  null): StateDataModel<T> {
             return StateDataModel(
                 DataState.ERROR,
                 null,

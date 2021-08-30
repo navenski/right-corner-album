@@ -28,12 +28,12 @@
       style="@style/RightCorner.Toolbar"
       android:layout_width="0dp"
       android:layout_height="?attr/actionBarSize"
-      app:titleId="@{viewmodel.liveData.id}"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
-      app:onNavigationClick="@{()->viewmodel.close()}" />
+      app:onNavigationClick="@{()->viewmodel.close()}"
+      app:titleId="@{viewmodel.liveData.data.id}" />
 
     <ImageView
       android:id="@+id/imageView"
@@ -48,10 +48,10 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/toolbarDetail"
       app:pictureProvider="@{filePathProvider}"
-      app:pictureUrl="@{viewmodel.liveData.pictureUrl}"
+      app:pictureUrl="@{viewmodel.liveData.data.pictureUrl}"
       app:scope="@{scope}"
 
-      app:thumbnailUrl="@{viewmodel.liveData.thumbnailUrl}"
+      app:thumbnailUrl="@{viewmodel.liveData.data.thumbnailUrl}"
       tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
@@ -60,7 +60,7 @@
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:padding="@dimen/default_padding"
-      android:text="@{viewmodel.liveData.title}"
+      android:text="@{viewmodel.liveData.data.title}"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_weight="1"

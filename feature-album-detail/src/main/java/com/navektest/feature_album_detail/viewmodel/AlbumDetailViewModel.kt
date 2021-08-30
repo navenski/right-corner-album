@@ -1,10 +1,10 @@
 package com.navektest.feature_album_detail.viewmodel
 
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.navektest.core_common.model.StateDataModel
 import com.navektest.feature_album_detail.model.AlbumDetail
 import com.navektest.feature_album_detail.repository.AlbumDetailRepository
 import com.navektest.feature_album_detail.repository.mapper.AlbumDetailMapper
@@ -17,21 +17,17 @@ import javax.inject.Inject
 @HiltViewModel
 class AlbumDetailViewModel @Inject constructor(private val repository: AlbumDetailRepository,
                                                private val albumDetailMapper: AlbumDetailMapper) : ViewModel() {
-    private val mutableLiveData = MutableLiveData<AlbumDetail>()
-    fun getLiveData(): LiveData<AlbumDetail> = mutableLiveData
-    val isLoading = ObservableBoolean(false)
+    private val mutableLiveData = MutableLiveData<StateDataModel<AlbumDetail>>()
+    fun getLiveData(): LiveData<StateDataModel<AlbumDetail>> = mutableLiveData
     private var routerWeakRef = WeakReference<AlbumDetailRouter>(null)
 
     fun initWithAlbumId(albumId: Long) {
         viewModelScope.launch {
-            isLoading.set(true)
+            mutableLiveData.value = StateDataModel.loading()
             val album = repository.getAlbum(albumId)
-            if (album == null) {
-
-            } else
-                mutableLiveData.value = albumDetailMapper.map(album)
+            mutableLiveData.value =
+                if (album != null) StateDataModel.success(albumDetailMapper.map(album)) else StateDataModel.error()
         }
-        isLoading.set(false)
     }
 
     fun bindRouter(router: AlbumDetailRouter) {
