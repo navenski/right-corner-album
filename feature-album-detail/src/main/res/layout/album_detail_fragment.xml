@@ -28,6 +28,7 @@
       style="@style/RightCorner.Toolbar"
       app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
       android:layout_width="match_parent"
+      app:titleId="@{viewmodel.liveData.id}"
       android:layout_height="?attr/actionBarSize"
       app:onNavigationClick="@{()->viewmodel.close()}"
       app:layout_constraintEnd_toEndOf="parent"
@@ -66,22 +67,6 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/imageView"
       tools:text="This is a simple text in order to show ..." />
-
-    <TextView
-      android:id="@+id/textView2"
-      style="@style/TextAppearance.AppCompat.Body1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:background="@color/white_transparency"
-      android:padding="6dp"
-      app:idToText="@{viewmodel.liveData.id}"
-      app:layout_constraintBottom_toBottomOf="@+id/textView"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.953"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/imageView"
-      app:layout_constraintVertical_bias="0.488"
-      tools:text="1522222" />
 
     <androidx.constraintlayout.widget.Guideline
       android:id="@+id/guideline2"

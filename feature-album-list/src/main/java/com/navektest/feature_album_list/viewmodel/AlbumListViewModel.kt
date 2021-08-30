@@ -12,6 +12,7 @@ import com.navektest.feature_album_list.repository.AlbumListRepositoryFactory
 import com.navektest.feature_album_list.repository.AlbumSyncState
 import com.navektest.feature_album_list.repository.mapper.AlbumItemMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
@@ -32,6 +33,7 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
 
     val albums =
         repository.getAlbums()
+            .catch { } //Do nothing
             .map { pagingData ->
                 pagingData.map {
                     itemMapper.map(it)
@@ -53,12 +55,18 @@ class AlbumListViewModel @Inject constructor(albumListRepositoryFactory: AlbumLi
         viewModelScope.launch {
             repository.syncWithServer()
             repository.hasAnyAlbum()
+                .catch { } //Do nothing
                 .collect { hasNoAlbums.set(!it) }
         }
     }
 
     private fun observeSyncStatus() = viewModelScope.launch {
         repository.observeSyncState()
+            .catch {
+                isLoading.set(false)
+                routerWeakRef.get()
+                    ?.displaySnackBarError(false)
+            }
             .collect {
                 when (it) {
                     is AlbumSyncState.Loading -> {

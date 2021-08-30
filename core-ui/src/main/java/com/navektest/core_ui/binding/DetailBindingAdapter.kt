@@ -92,6 +92,14 @@ object DetailBindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("titleId")
+    fun setTitleId(
+        toolbar: com.google.android.material.appbar.MaterialToolbar, id: Long?
+    ) {
+        id?.let { toolbar.title = "$it" }
+    }
+
+    @JvmStatic
     @BindingAdapter("onNavigationClick")
     fun onNavigationClick(view: Toolbar, listener: View.OnClickListener) {
         view.setNavigationOnClickListener(listener)

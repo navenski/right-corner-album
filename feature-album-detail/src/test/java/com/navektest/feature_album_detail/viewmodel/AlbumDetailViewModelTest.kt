@@ -1,5 +1,14 @@
 package com.navektest.feature_album_detail.viewmodel
 
-import org.junit.Assert.*
+import com.navektest.feature_album_detail.router.AlbumDetailRouter
+import com.nhaarman.mockitokotlin2.mock
+import org.junit.Test
 
-class AlbumDetailViewModelTest
+class AlbumDetailViewModelTest{
+
+    @Test
+    fun testClose() {
+        val mockRouter = mock<AlbumDetailRouter>()
+
+    }
+}
