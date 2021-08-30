@@ -32,8 +32,7 @@ class AlbumDetailFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.scope = lifecycleScope
         binding.filePathProvider = fileCacheDownloader
-        binding.toolbarDetail.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
-        binding.toolbarDetail.setNavigationOnClickListener { viewModel.close() }
+
         return binding.root
     }
 

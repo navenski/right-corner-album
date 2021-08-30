@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="RightCorner.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-    <item name="minHeight">?attr/actionBarSize</item>
-    <item name="elevation">@dimen/toolbar_elevation</item>
-    <item name="theme">?attr/actionBarTheme</item>
-    <item name="background">@color/lynx_white</item>
-  </style>
+  <style name="RightCorner.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary" />
 </resources>
