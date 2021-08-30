@@ -22,14 +22,11 @@
     tools:context=".view.AlbumListFragment">
     <androidx.appcompat.widget.Toolbar
       android:id="@+id/toolbarAlbum"
+      style="@style/RightCorner.Toolbar"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      android:elevation="10dp"
-      android:background="@color/white"
-      android:minHeight="?attr/actionBarSize"
-      android:theme="?attr/actionBarTheme"
       app:layout_constraintTop_toTopOf="parent"
       app:title="@string/album" />
 
