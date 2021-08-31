@@ -9,6 +9,5 @@ class AlbumDetailViewModelTest{
     @Test
     fun testClose() {
         val mockRouter = mock<AlbumDetailRouter>()
-
     }
 }

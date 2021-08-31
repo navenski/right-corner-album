@@ -1,8 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: "androidx.navigation.safeargs"
 android {
   compileSdkVersion rootProject.compileSdkVersion
   buildToolsVersion rootProject.buildToolsVersion
@@ -37,23 +35,6 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation libraries.ktxCore
   implementation libraries.ktxFragment
-  implementation libraries.appcompat
-  implementation libraries.material
-  implementation libraries.constraintlayout
-
-  //Navigation
-  implementation libraries.navigationFragment
-  implementation libraries.navigationUI
-  implementation libraries.navigationModuleSupport
-
-  // Room
-  implementation libraries.room
-  implementation libraries.roomCoroutines
-  kapt libraries.roomComplier
-
-  //Dagger
-  implementation libraries.hilt
-  kapt libraries.hiltCompiler
 
   //Kotlin
   implementation libraries.kotlinReflect
@@ -61,9 +42,4 @@ dependencies {
   implementation libraries.ktx_viewmodel
   coreLibraryDesugaring libraries.desugarJdkLib
 
-  //SquareUp
-  implementation libraries.squareup.okhttp3
-  implementation libraries.squareup.loggingInterceptor
-  implementation libraries.squareup.retrofit
-  implementation libraries.squareup.retrofitConverter
 }

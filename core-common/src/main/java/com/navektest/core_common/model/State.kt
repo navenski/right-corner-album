@@ -23,10 +23,10 @@ open class StateDataModel<T> protected constructor(
     }
 
     companion object {
-        fun <T> loading(): StateDataModel<T> {
+        fun <T> loading(data: T?= null): StateDataModel<T> {
             return StateDataModel(
                 DataState.LOADING,
-                null,
+                data,
                 null
             )
         }
