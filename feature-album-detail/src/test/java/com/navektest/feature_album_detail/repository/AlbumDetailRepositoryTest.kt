@@ -45,8 +45,7 @@ class AlbumDetailRepositoryTest{
             //When
             val result = repository.getAlbum(20L)
             //Then
-            Assert.assertEquals(album, result)
-            verify(mockDataSource, times(1)).get(eq(20L))
+            Assert.assertNull(result)
         }
     }
 }

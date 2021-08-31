@@ -93,7 +93,6 @@ dependencies {
   implementation libraries.squareup.loggingInterceptor
   implementation libraries.squareup.retrofit
   implementation libraries.squareup.retrofitConverter
-  debugImplementation libraries.squareup.leakCanary
 
 
   //Paging

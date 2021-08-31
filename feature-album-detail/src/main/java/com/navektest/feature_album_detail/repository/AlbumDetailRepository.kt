@@ -8,6 +8,11 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class AlbumDetailRepository @Inject constructor(private val localDataSource: AlbumLocalDatasource) {
+
+    /**
+     * Get Album from database
+     * If an error occured, it'll return null
+     */
     suspend fun getAlbum(id: Long): Album? {
         return try {
             localDataSource.get(id)
