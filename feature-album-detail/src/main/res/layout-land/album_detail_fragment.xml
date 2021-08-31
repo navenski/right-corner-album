@@ -68,5 +68,18 @@
       app:layout_constraintTop_toBottomOf="@+id/toolbarDetail"
       tools:text="el pablo de picasso" />
 
+    <ProgressBar
+      android:id="@+id/progressBar"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:indeterminate="true"
+      android:indeterminateTint="@color/lynx_white"
+      app:layout_constraintBottom_toBottomOf="@+id/imageView"
+      app:layout_constraintEnd_toEndOf="@+id/imageView"
+      app:layout_constraintHorizontal_bias="0.46"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.52"
+      app:visibleOrGone="@{viewmodel.liveData.state == DataState.LOADING}" />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
